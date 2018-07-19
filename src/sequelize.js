@@ -6,18 +6,18 @@ const debug = makeDebug('mostly:features-sequelize:sequelize.js')
 
 module.exports = class {
   static connecDB (options) {
-    const sequelize = new Sequelize(options)
-    sequelize
-      .authenticate()
-      .then(() => {
-        debug('Connection has been established successfully.')
-      })
-      .catch(err => {
-        console.error('Unable to connect to the database:', err);
-      })
-    app.set('sequelize', sequelize)
-    
-    return
+    return function (app) {
+      const sequelize = new Sequelize(options)
+      sequelize
+        .authenticate()
+        .then(() => {
+          debug('Connection has been established successfully.')
+        })
+        .catch(err => {
+          console.error('Unable to connect to the database:', err);
+        })
+      app.set('sequelize', sequelize)
+    }
   }
 
   static getModel (app, name, model) {
