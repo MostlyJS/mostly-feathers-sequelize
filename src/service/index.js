@@ -8,6 +8,11 @@ class Service extends BaseService {
   constructor(options) {
     super(options)
   }
+
+  setup (app) {
+    this.app = app;
+  }
+  
   //TODO
   static create (options) {
     debug('create service: ', options)
