@@ -13,7 +13,6 @@ class Service extends BaseService {
     this.app = app;
   }
   
-  //TODO
   static create (options) {
     debug('create service: ', options)
     return new Service(options)
