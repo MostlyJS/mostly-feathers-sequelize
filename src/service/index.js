@@ -12,23 +12,15 @@ class Service extends BaseService {
   setup (app) {
     this.app = app;
   }
-  
-  unwrapList (result) {
-    return (result && result.data) ? result.data : []
-  }
 
   async findOne (condition) {
     const query = { where: condition, $limit: 1 }
-    const result = this.unwrapList(await this.find(query))
+    const result = (await this.find(query)).data
     return result && result.length ? result[0] : undefined
   }
 
-  async findNaked (condition) {
-    return this.unwrapList(await this.find(condition))
-  }
-
-  async findAllNaked () {
-    return this.findNaked({ $limit: this.paginate.max || 100 })
+  async findAll () {
+    return this.find({ paginate: false })
   }
   
   static create (options) {
