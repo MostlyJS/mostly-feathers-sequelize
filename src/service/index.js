@@ -10,7 +10,7 @@ class Service extends BaseService {
   }
 
   setup (app) {
-    this.app = app;
+    this.app = app
   }
 
   async findOne (condition) {
