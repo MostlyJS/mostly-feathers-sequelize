@@ -160,8 +160,8 @@ class Service extends BaseService {
     }).then(transform);
   }
 
-  async all () {
-    return this.find({ paginate: false })
+  async all (params = {}) {
+    return this.find({ paginate: false, ...params }).then(transform)
   }
   
   static create (options) {
