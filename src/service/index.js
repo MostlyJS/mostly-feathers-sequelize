@@ -128,6 +128,11 @@ class Service extends BaseService {
         return this.get(null, params);
       },
 
+      get: (id, params = {}) => {
+        params.action = action;
+        return this.get(id, params);
+      },
+
       create: async (data, params = {}) => {
         params.action = action;
         return this.patch(null, data, params);
@@ -158,6 +163,10 @@ class Service extends BaseService {
     return super.find(params).then(results => {
       return results && results.length > 0? results[0] : null;
     }).then(transform);
+  }
+
+  async find (params) {
+    return super.find(params).then(transform)
   }
 
   async all (params = {}) {
