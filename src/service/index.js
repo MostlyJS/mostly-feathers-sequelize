@@ -84,7 +84,6 @@ class Service extends BaseService {
     return super.update(id, data, params).then(transform);
   }
 
-
   async patch (id, data, params = {}) {
     params = { query: {}, ...params };
 
@@ -166,6 +165,9 @@ class Service extends BaseService {
   }
 
   async find (params) {
+    if (params && params.query && params.query.$sort && params.query.$sort.length) {
+      params.query.$sort = JSON.parse(params.query.$sort)
+    }
     return super.find(params).then(transform)
   }
 
