@@ -19,7 +19,7 @@
     "feathers-errors": "^2.9.2",
     "lodash.omit": "^4.5.0",
     "pg": "^7.4.3",
-    "sequelize": "^4.38.0",
+    "sequelize": "^4.39.1",
     "uberproto": "^2.0.3"
   },
   "devDependencies": {
