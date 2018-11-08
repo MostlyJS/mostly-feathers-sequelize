@@ -26,7 +26,7 @@ const defaultOptions = {
 
 class Service extends BaseService {
   constructor(options) {
-    options = Object.assign(defaultOptions, options)
+    options = Object.assign({}, options, defaultOptions)
     super(options)
   }
 
