@@ -18,8 +18,15 @@ const assertMultiple = function (id, params, message) {
   }
 }
 
+const defaultOptions = {
+  sort: {
+    createdAt: -1
+  }
+}
+
 class Service extends BaseService {
   constructor(options) {
+    options = Object.assign(defaultOptions, options)
     super(options)
   }
 
@@ -165,8 +172,12 @@ class Service extends BaseService {
   }
 
   async find (params) {
-    if (params && params.query && params.query.$sort && params.query.$sort.length) {
-      params.query.$sort = JSON.parse(params.query.$sort)
+    if (params && params.query) {
+      if (params.query.$sort && params.query.$sort.length) {
+        params.query.$sort = JSON.parse(params.query.$sort)
+      } else {
+        params.query.$sort = this.options.sort
+      }
     }
     return super.find(params).then(transform)
   }
