@@ -2,19 +2,20 @@ const { isArray, find, map } = require('lodash')
 const sequelize = require('sequelize')
 const Op = sequelize.Op
 
-module.exports = function populate(service, field) {
+module.exports = function populate(service, field, options = {}) {
+  const idField = options.idField || 'id'
   return async context => {
 
     async function populateWith (items) {
       const resource = context.app.service(service)
       const ids = map(items, field)
       const results = await resource.find({
-        query: { id: { [Op.in]: ids } },
+        query: { [idField]: { [Op.in]: ids } },
         paginate: false
       })
       if (results) {
         return map(items, item => {
-          const obj = find(results, { id: item[field] })
+          const obj = find(results, { [idField]: item[field] })
           if (obj) {
             item[field] = obj
           }
