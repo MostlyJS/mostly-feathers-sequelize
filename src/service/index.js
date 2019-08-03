@@ -173,8 +173,10 @@ class Service extends BaseService {
 
   async find (params) {
     if (params && params.query) {
-      if (params.query.$sort && params.query.$sort.length) {
-        params.query.$sort = JSON.parse(params.query.$sort)
+      if (params.query.$sort) {
+        if (fp.isString(params.query.$sort)) {
+          params.query.$sort = JSON.parse(params.query.$sort)
+        }
       } else {
         params.query.$sort = this.options.sort
       }
