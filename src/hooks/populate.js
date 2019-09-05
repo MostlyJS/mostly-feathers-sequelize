@@ -26,10 +26,18 @@ module.exports = function populate(service, field, options = {}) {
       }
     }
 
-    if (isArray(context.result.data)) {
-      context.result.data = await populateWith(context.result.data)
+    let result = context.result.data || context.result
+    if (!result) return context;
+
+    if (isArray(result)) {
+      result = await populateWith(result)
     } else {
-      context.result.data = (await populateWith([context.result.data]))[0]
+      result = (await populateWith([result]))[0]
+    }
+    if (context.result.data) {
+      context.result.data = result;
+    } else {
+      context.result = result;
     }
     return context
   }
